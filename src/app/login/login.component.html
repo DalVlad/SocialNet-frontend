@@ -1,0 +1,29 @@
+<div *ngIf="isLoggedIn; else loggedOut">
+  <h1>{{hello}}</h1>
+</div>
+   
+  <ng-template #loggedOut>
+    <div class="row col-sm-6" style="max-width:350px;">
+      <form name="form" (ngSubmit)="onSubmit()" #f="ngForm" novalidate>
+        <div class="form-group">
+          <label for="login">Username</label>
+          <input type="text" class="form-control" name="login" [(ngModel)]="form.login" #login="ngModel"
+            required />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" class="form-control" name="password" [(ngModel)]="form.password" #password="ngModel"
+            required minlength="6" />
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary">Login</button>
+        </div>
+        <div *ngIf="f.submitted">
+          <div class="row">{{errorMessage}}</div>
+        </div>
+      </form>
+      <hr />
+      <p>Don't have an account?</p>
+      <a href="signup" class="btn btn-success">Sign Up</a>
+    </div>
+  </ng-template>
