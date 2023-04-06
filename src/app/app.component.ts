@@ -12,9 +12,11 @@ export class AppComponent implements OnInit {
   constructor(private tokenService: TokenStorageService){}
 
   token: any;
+  login: any;
   
   ngOnInit(): void {
     this.token = this.tokenService.getToken();
+    this.login = this.tokenService.getLogin();
   }
 
   logout(){
