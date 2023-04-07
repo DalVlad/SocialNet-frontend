@@ -17,12 +17,12 @@ export class LoginComponent implements OnInit {
   errorMessage = '';
   private loginInfo!: PersonDTO;
   hello = '';
-  
-  constructor(private authService : AuthService, private tokenStorage: TokenStorageService, private personService: PersonService){}
-  
-  
+
+  constructor(private authService: AuthService, private tokenStorage: TokenStorageService, private personService: PersonService) { }
+
+
   ngOnInit(): void {
-    if(this.tokenStorage.getToken()){
+    if (this.tokenStorage.getToken()) {
       this.personService.getHello().subscribe(data => {
         this.hello = data;
       });
