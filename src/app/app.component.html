@@ -5,7 +5,7 @@
       <a *ngIf="!token; else loggedOut" class="navbar-brand" href="auth/login">login</a>
       <ng-template #loggedOut>
         <a class="navbar-brand" href="#" (click)="logout()" >Logout</a>
-        <a class="navbar-brand" href="gallery" >Gallery</a>
+        <a class="navbar-brand" href="gallery?pathCatalog=/" >Gallery</a>
         <span class="navbar-text ">Hello {{login}}</span>
       </ng-template>
     </div>

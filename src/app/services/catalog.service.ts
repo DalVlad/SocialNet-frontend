@@ -13,12 +13,6 @@ export class CatalogService {
 
   constructor(private http: HttpClient) { }
 
-  getStorage(): Observable<storage> {
-    return this.http.get(this.getFileUrl + '/all').pipe(map((data: any) => {
-      return new storage(data['pathCatalogRoot']);
-    }));
-  }
-
   getCatalog(path: string): Observable<storage> {
     return this.http.get(this.getFileUrl + this.requestParam + path).pipe(map((data: any) => {
       return new storage(data);

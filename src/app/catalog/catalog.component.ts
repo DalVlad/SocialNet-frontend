@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { TokenStorageService } from '../auth/token-storage.service';
 import { CatalogService } from '../services/catalog.service';
@@ -13,40 +14,37 @@ export class CatalogComponent implements OnInit {
 
   info: any;
   errorMessage: any;
-  fileBlob: Blob = new Blob;
   urlFile: string = '';
   typeFile: string = '';
-  isLoad = false;
   nameFile = '';
   pathCatalog = '';
+  
 
   constructor(private fileService: FileService,
-    private catalogService: CatalogService, private tokenStorage: TokenStorageService, private route: ActivatedRoute) { }
+    private catalogService: CatalogService, private tokenStorage: TokenStorageService,
+    private route: ActivatedRoute, private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
       this.pathCatalog = params['pathCatalog'];
     });
-    if (this.pathCatalog == null) {
-      this.catalogService.getStorage().subscribe(
-        data => {
-          this.info = {
-            token: this.tokenStorage.getToken(),
-            storage: data,
-          };
-        },);
-    } else {
-      this.catalogService.getCatalog(this.pathCatalog).subscribe(
-        data => {
-          this.info = {
-            token: this.tokenStorage.getToken(),
-            storage: data,
-          };
-        },
-        error => {
-          this.errorMessage = error.error.message;
-        },);
-    }
+    this.catalogService.getCatalog(this.pathCatalog).subscribe(
+      data => {
+        for(let i = 0; i < data.pathCatalogRoot.files.length; i++){
+        }
+        data.pathCatalogRoot.files.forEach(file => {
+          if(file.preview != null){
+            file.url = "data:image/jpeg;base64," + file.preview;
+          }
+        });
+        this.info = {
+          token: this.tokenStorage.getToken(),
+          storage: data,
+        };
+      },
+      error => {
+        this.errorMessage = error.error.message;
+      });
   }
 
   getFile(fileName: string): void {
@@ -67,5 +65,4 @@ export class CatalogComponent implements OnInit {
       },);
     this.nameFile = fileName;
   }
-
 }

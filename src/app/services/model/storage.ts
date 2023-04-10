@@ -1,4 +1,3 @@
-import { file } from "./file";
 import { pathCatalog } from "./pathCatalog";
 
 export class storage{
