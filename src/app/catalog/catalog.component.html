@@ -2,7 +2,7 @@
   <div class="d-flex">
     <div *ngIf="pathCatalog == '/'">
       <div class="text-center" style="width: 10rem;">
-        <a href="#">
+        <a data-bs-toggle="modal" data-bs-target="#createCatalogModal">
           <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-folder-plus"
             viewBox="0 0 16 16">
             <path
@@ -37,11 +37,13 @@
             <img [src]="file.url" id="file2">
           </div>
           <ng-template #video>
-          <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-play-btn" viewBox="0 0 16 16">
-            <path d="M6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814l-3.5-2.5z"/>
-            <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm15 0a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
-          </svg>
-        </ng-template>
+            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-play-btn"
+              viewBox="0 0 16 16">
+              <path d="M6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814l-3.5-2.5z" />
+              <path
+                d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm15 0a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z" />
+            </svg>
+          </ng-template>
           <div class="card-body">
             <h5 class="card-title">{{file.name}}</h5>
           </div>
@@ -68,6 +70,37 @@
               <img height="100%" [src]="urlFile" id="file1">
             </div>
           </figure>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal" id="createCatalogModal" tabindex="-1" aria-labelledby="createCatalogModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-em">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="createCatalogModalLabel">{{nameFile}}</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+        </div>
+        <div class="modal-body">
+          <div *ngIf="errorMessage">
+            <div class="row">{{errorMessage}}</div>
+          </div>
+          <form class="ms-3" name="form" (ngSubmit)="createCatalog()" #f="ngForm" novalidate>
+            <div *ngIf="f.submitted">
+              <div class="row">{{errorMessage}}</div>
+            </div>
+            <div class="form-group">
+              <label for="name">Имя каталога</label>
+              <input type="text" class="form-control mb-3" name="name" [(ngModel)]="createCatalogName"
+                #name="ngModel" />
+            </div>
+            <div class="form-group">
+              <button class="btn btn-primary">Создать</button>
+            </div>
+          </form>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
           </div>

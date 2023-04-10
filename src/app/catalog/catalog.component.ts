@@ -18,6 +18,7 @@ export class CatalogComponent implements OnInit {
   typeFile: string = '';
   nameFile = '';
   pathCatalog = '';
+  createCatalogName: any;
   
 
   constructor(private fileService: FileService,
@@ -65,4 +66,16 @@ export class CatalogComponent implements OnInit {
       },);
     this.nameFile = fileName;
   }
+
+  createCatalog() {
+    this.catalogService.creataCatalog(this.createCatalogName).subscribe(
+      data => {
+        window.location.reload();
+      },
+      error => {
+        this.errorMessage = error.error.message;
+      }
+    );
+  }
+
 }
