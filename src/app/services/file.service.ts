@@ -7,14 +7,17 @@ import { Observable } from 'rxjs';
 })
 export class FileService {
 
-  private getFileUrl = 'http://localhost:8080/file';
+  private url = 'http://localhost:8080/file';
   private requestParam = '?pathCatalog='
 
   constructor(private http: HttpClient) { }
 
   getFile(fileName: string, path: string): Observable<Blob> {
-    return this.http.get(this.getFileUrl + this.requestParam + path + '/' + fileName, { responseType: 'blob' });
+    return this.http.get(this.url + this.requestParam + path + '/' + fileName, { responseType: 'blob' });
   }
 
+  saveFile(formData: FormData, path: string): Observable<any> {
+    return this.http.post(this.url + this.requestParam + path, formData)
+  }
 
 }

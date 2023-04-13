@@ -19,7 +19,9 @@ export class CatalogComponent implements OnInit {
   nameFile = '';
   pathCatalog = '';
   createCatalogName: any;
-  
+  fileName: string = "Файл не выбран";
+  file: any;
+
 
   constructor(private fileService: FileService,
     private catalogService: CatalogService, private tokenStorage: TokenStorageService,
@@ -69,6 +71,28 @@ export class CatalogComponent implements OnInit {
 
   createCatalog() {
     this.catalogService.creataCatalog(this.createCatalogName).subscribe(
+      data => {
+        window.location.reload();
+      },
+      error => {
+        this.errorMessage = error.error.message;
+      }
+    );
+  }
+
+  onFileSelected(event: any) {
+    console.log(event.target.files);
+    this.file = event.target.files[0];
+    console.log(this.file);
+    this.fileName = event.target.files[0].name;
+  }
+
+  saveFile() {
+    const formData = new FormData();
+    formData.append("file", this.file);
+    console.log(this.file);
+    console.log(formData);
+    this.fileService.saveFile(formData, this.pathCatalog).subscribe(
       data => {
         window.location.reload();
       },
