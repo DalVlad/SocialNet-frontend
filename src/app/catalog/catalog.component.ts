@@ -28,6 +28,7 @@ export class CatalogComponent implements OnInit {
     private route: ActivatedRoute, private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
+    this.errorMessage = null;
     this.route.queryParams.subscribe(params => {
       this.pathCatalog = params['pathCatalog'];
     });
@@ -51,6 +52,7 @@ export class CatalogComponent implements OnInit {
   }
 
   getFile(fileName: string): void {
+    this.errorMessage = null;
     if (this.pathCatalog == null) {
       this.pathCatalog = '';
     }
@@ -70,6 +72,7 @@ export class CatalogComponent implements OnInit {
   }
 
   createCatalog() {
+    this.errorMessage = null;
     this.catalogService.creataCatalog(this.createCatalogName).subscribe(
       data => {
         window.location.reload();
@@ -81,14 +84,31 @@ export class CatalogComponent implements OnInit {
   }
 
   onFileSelected(event: any) {
+    this.errorMessage = null;
     this.file = event.target.files[0];
     this.fileName = event.target.files[0].name;
   }
 
   saveFile() {
+    this.errorMessage = null;
     const formData = new FormData();
     formData.append("file", this.file);
     this.fileService.saveFile(formData, this.pathCatalog).subscribe(
+      data => {
+        window.location.reload();
+      },
+      error => {
+        this.errorMessage = error.error.message;
+      }
+    );
+  }
+
+  deleteFile() {
+    this.errorMessage = null;
+    if (!confirm("Удалить файл с имяним " + this.nameFile)) {
+      return;
+    }
+    this.fileService.deleteFile(this.nameFile, this.pathCatalog).subscribe(
       data => {
         window.location.reload();
       },

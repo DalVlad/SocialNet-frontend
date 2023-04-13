@@ -73,6 +73,7 @@
             </div>
           </figure>
           <div class="modal-footer">
+            <button type="button" class="btn btn-danger" (click)="deleteFile()">Удалить</button>
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
           </div>
         </div>
@@ -88,9 +89,6 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
         </div>
         <div class="modal-body">
-          <div *ngIf="errorMessage">
-            <div class="row">{{errorMessage}}</div>
-          </div>
           <form class="ms-3" name="form" (ngSubmit)="createCatalog()" #f="ngForm" novalidate>
             <div *ngIf="f.submitted">
               <div class="row">{{errorMessage}}</div>
@@ -120,9 +118,6 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
         </div>
         <div class="modal-body">
-          <div *ngIf="errorMessage">
-            <div class="row">{{errorMessage}}</div>
-          </div>
           <form class="ms-3" name="form" (ngSubmit)="saveFile()" #f="ngForm" novalidate>
             <div *ngIf="f.submitted">
               <div class="row">{{errorMessage}}</div>

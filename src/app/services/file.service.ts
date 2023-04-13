@@ -20,4 +20,8 @@ export class FileService {
     return this.http.post(this.url + this.requestParam + path, formData)
   }
 
+  deleteFile(fileName: string, path: string): Observable<any> {
+    return this.http.delete(this.url + this.requestParam + path + '/' + fileName)
+  }
+
 }
