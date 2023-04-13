@@ -1,17 +1,29 @@
-figure{
+figure {
     text-align: center;
 }
-figure img{
+
+figure img {
     max-width: 100%;
     max-height: 66vh;
 }
-figure video{
+
+figure video {
     max-width: 100%;
     max-height: 66vh;
 }
-.d-flex{
+
+.d-flex {
     flex-wrap: wrap;
 }
-.d-flex div{
-    margin-top: 6px;
+
+.d-flex div {
+    margin-top: 12px;
+    margin-left: 6px;
+    width: 162px;
+    height: 96px;
+    text-align: center;
+}
+
+.d-flex div img {
+    max-height: 75px;
 }

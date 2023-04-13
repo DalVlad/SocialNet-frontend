@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit {
   info: any;
   errorMessage: string | undefined;
 
-  constructor(private token: TokenStorageService){}
+  constructor(private token: TokenStorageService) { }
 
   ngOnInit(): void {
     this.info = {
@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
     };
   }
 
-  logout(){
+  logout() {
     this.token.signOut();
     window.location.reload;
   }

@@ -33,10 +33,10 @@ export class CatalogComponent implements OnInit {
     });
     this.catalogService.getCatalog(this.pathCatalog).subscribe(
       data => {
-        for(let i = 0; i < data.pathCatalogRoot.files.length; i++){
+        for (let i = 0; i < data.pathCatalogRoot.files.length; i++) {
         }
         data.pathCatalogRoot.files.forEach(file => {
-          if(file.preview != null){
+          if (file.preview != null) {
             file.url = "data:image/jpeg;base64," + file.preview;
           }
         });

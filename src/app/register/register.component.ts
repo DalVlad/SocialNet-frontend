@@ -16,8 +16,8 @@ export class RegisterComponent {
   errorMessage = '';
   private loginInfo!: SignupInfo;
 
-  constructor(private authService : AuthService, private tokenStorage: TokenStorageService, private personService: PersonService){}
-  
+  constructor(private authService: AuthService, private tokenStorage: TokenStorageService, private personService: PersonService) { }
+
 
   onSubmit() {
     this.loginInfo = new SignupInfo(

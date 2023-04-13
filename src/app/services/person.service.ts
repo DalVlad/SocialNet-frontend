@@ -12,7 +12,7 @@ export class PersonService {
   constructor(private http: HttpClient) { }
 
   getHello(): Observable<string> {
-    return this.http.get(this.helloUrl, {responseType: 'text'});
+    return this.http.get(this.helloUrl, { responseType: 'text' });
   }
 
 }

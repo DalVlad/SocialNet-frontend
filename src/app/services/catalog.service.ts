@@ -8,8 +8,8 @@ import { storage } from './model/storage';
 })
 export class CatalogService {
 
-    private url = 'http://localhost:8080/catalog';
-    private requestParam = '?pathCatalog='
+  private url = 'http://localhost:8080/catalog';
+  private requestParam = '?pathCatalog='
 
   constructor(private http: HttpClient) { }
 

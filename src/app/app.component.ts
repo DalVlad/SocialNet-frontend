@@ -9,17 +9,17 @@ import { TokenStorageService } from './auth/token-storage.service';
 export class AppComponent implements OnInit {
   title = 'SocialNet-frontend';
 
-  constructor(private tokenService: TokenStorageService){}
+  constructor(private tokenService: TokenStorageService) { }
 
   token: any;
   login: any;
-  
+
   ngOnInit(): void {
     this.token = this.tokenService.getToken();
     this.login = this.tokenService.getLogin();
   }
 
-  logout(){
+  logout() {
     this.tokenService.signOut();
     window.location.reload;
   }
