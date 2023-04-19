@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { TokenStorageService } from '../auth/token-storage.service';
@@ -20,12 +20,14 @@ export class CatalogComponent implements OnInit {
   pathCatalog = '';
   createCatalogName: any;
   fileName: string = "Файл не выбран";
-  file: any;
-
+  file: any = null;
+  mapURLImg: Map<string, string> = new Map();
+  preview: any;
+  previewURL: any;
 
   constructor(private fileService: FileService,
     private catalogService: CatalogService, private tokenStorage: TokenStorageService,
-    private route: ActivatedRoute, private sanitizer: DomSanitizer) { }
+    private route: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.errorMessage = null;
@@ -52,16 +54,26 @@ export class CatalogComponent implements OnInit {
   }
 
   getFile(fileName: string): void {
+    this.urlFile = '';
     this.errorMessage = null;
     if (this.pathCatalog == null) {
       this.pathCatalog = '';
+    }
+    if (this.mapURLImg.get(fileName) != undefined) {
+      this.nameFile = fileName;
+      this.urlFile = this.mapURLImg.get(fileName)!;
+      this.typeFile = this.urlFile.split("/")[0].split(":")[1];
+      return;
     }
     this.fileService.getFile(fileName, this.pathCatalog).subscribe(
       data => {
         this.typeFile = data.type.substring(0, data.type.indexOf('/'));
         const fileReader = new FileReader();
         fileReader.onloadend = () => {
-          this.urlFile = fileReader.result as string;
+          this.mapURLImg.set(fileName, fileReader.result as string);
+          if (this.urlFile == '') {
+            this.urlFile = fileReader.result as string;
+          }
         };
         fileReader.readAsDataURL(data);
       },
@@ -87,20 +99,61 @@ export class CatalogComponent implements OnInit {
     this.errorMessage = null;
     this.file = event.target.files[0];
     this.fileName = event.target.files[0].name;
+    if (this.file.type.substring(0, this.file.type.indexOf('/')) == "video") {
+      const video: HTMLVideoElement = document.createElement('video');
+      video.src = URL.createObjectURL(this.file);
+      video.preload = 'auto';
+      video.currentTime = 1;
+      video.addEventListener('loadeddata', () => {
+        const canvas = document.createElement('canvas');
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        const ctx = canvas.getContext('2d');
+        ctx!.drawImage(video, 0, 0, canvas.width, canvas.height);
+        this.previewURL = canvas.toDataURL();
+        const blob = this.dataURItoBlob(this.previewURL);
+        this.preview = new File([blob], 'preview.png', { type: 'image/png' });
+      });
+    }
   }
+
+  dataURItoBlob(dataURI: string) {
+    const byteString = atob(dataURI.split(',')[1]);
+    const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+    const ab = new ArrayBuffer(byteString.length);
+    const ia = new Uint8Array(ab);
+    for (let i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+    return new Blob([ab], { type: mimeString });
+  }
+
 
   saveFile() {
     this.errorMessage = null;
     const formData = new FormData();
     formData.append("file", this.file);
-    this.fileService.saveFile(formData, this.pathCatalog).subscribe(
-      data => {
-        window.location.reload();
-      },
-      error => {
-        this.errorMessage = error.error.message;
-      }
-    );
+    if (this.file.type.substring(0, this.file.type.indexOf('/')) == "video") {
+      formData.append("preview", this.preview);
+      this.fileService.saveVideo(formData, this.pathCatalog).subscribe(
+        data => {
+          window.location.reload();
+        },
+        error => {
+          this.errorMessage = error.error.message;
+        }
+      );
+    } else {
+      this.fileService.saveImg(formData, this.pathCatalog).subscribe(
+        data => {
+          window.location.reload();
+        },
+        error => {
+          this.errorMessage = error.error.message;
+        }
+      );
+    }
+
   }
 
   deleteFile() {

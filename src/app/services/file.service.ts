@@ -16,8 +16,12 @@ export class FileService {
     return this.http.get(this.url + this.requestParam + path + '/' + fileName, { responseType: 'blob' });
   }
 
-  saveFile(formData: FormData, path: string): Observable<any> {
-    return this.http.post(this.url + this.requestParam + path, formData)
+  saveImg(formData: FormData, path: string): Observable<any> {
+    return this.http.post(this.url + "/img" + this.requestParam + path, formData)
+  }
+
+  saveVideo(formData: FormData, path: string): Observable<any> {
+    return this.http.post(this.url + "/video" + this.requestParam + path, formData)
   }
 
   deleteFile(fileName: string, path: string): Observable<any> {
