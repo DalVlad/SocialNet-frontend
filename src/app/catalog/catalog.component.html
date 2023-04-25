@@ -39,21 +39,22 @@
 
     <div *ngFor="let file of info.storage.pathCatalogRoot.files">
       <a (click)="getFile(file.name)" data-bs-toggle="modal" data-bs-target="#fileModal">
-        <img *ngIf="file.url; else video" [src]="file.url" id="file2">
-        <ng-template #video>
-          <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-play-btn"
-            viewBox="0 0 16 16">
-            <path d="M6.79 5.093A.5.5 0 0 0 6 5.5v5a.5.5 0 0 0 .79.407l3.5-2.5a.5.5 0 0 0 0-.814l-3.5-2.5z" />
+        <img *ngIf="file.url; else errorPreview" [src]="file.url" id="file2">
+        <ng-template #errorPreview>
+          <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor"
+            class="bi bi-file-earmark-excel" viewBox="0 0 16 16">
             <path
-              d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm15 0a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z" />
+              d="M5.884 6.68a.5.5 0 1 0-.768.64L7.349 10l-2.233 2.68a.5.5 0 0 0 .768.64L8 10.781l2.116 2.54a.5.5 0 0 0 .768-.641L8.651 10l2.233-2.68a.5.5 0 0 0-.768-.64L8 9.219l-2.116-2.54z" />
+            <path
+              d="M14 14V4.5L9.5 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2zM9.5 3A1.5 1.5 0 0 0 11 4.5h2V14a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h5.5v2z" />
           </svg>
+          <h5 class="card-title">{{file.name}}</h5>
         </ng-template>
-        <h5 class="card-title">{{file.name}}</h5>
       </a>
     </div>
   </div>
 
-  <div class="modal" id="fileModal" tabindex="-1" aria-labelledby="fileModalLabel" aria-hidden="true">
+  <div class="modal fade" id="fileModal" tabindex="-1" aria-labelledby="fileModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
         <div class="modal-header">
@@ -73,6 +74,21 @@
             </div>
           </figure>
           <div class="modal-footer">
+            <div class="likes" (click)="setLike()">
+              <svg *ngIf="!isLike; else like" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                <path
+                  d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+              </svg>
+              <ng-template #like>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                  class="bi bi-heart-fill" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd"
+                    d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
+                </svg>
+              </ng-template>
+              <h2>{{fileLikes}}</h2>
+            </div>
             <button type="button" class="btn btn-danger" (click)="deleteFile()">Удалить</button>
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
           </div>
@@ -81,7 +97,7 @@
     </div>
   </div>
 
-  <div class="modal" id="createCatalogModal" tabindex="-1" aria-labelledby="createCatalogModalLabel" aria-hidden="true">
+  <div class="modal fade" id="createCatalogModal" tabindex="-1" aria-labelledby="createCatalogModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-em">
       <div class="modal-content">
         <div class="modal-header">
@@ -110,7 +126,7 @@
     </div>
   </div>
 
-  <div class="modal" id="saveFileModal" tabindex="-1" aria-labelledby="saveFileModalLabel" aria-hidden="true">
+  <div class="modal fade" id="saveFileModal" tabindex="-1" aria-labelledby="saveFileModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-em">
       <div class="modal-content">
         <div class="modal-header">
@@ -127,7 +143,7 @@
               <input type="file" class="form-control mb-3 d-none" name="file" (change)="onFileSelected($event)"
                 [(ngModel)]="file" #name="ngModel" #fileUpload />
               <div class="file-upload">
-                {{fileName || "No file uploaded yet."}}
+                {{selectedFileName || "No file uploaded yet."}}
                 <div mat-mini-fab color="primary" class="btn btn-primary upload-btn mb-3" (click)="fileUpload.click()">
                   <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
                     class="bi bi-paperclip" viewBox="0 0 16 16">

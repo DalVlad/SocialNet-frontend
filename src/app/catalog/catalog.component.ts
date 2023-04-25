@@ -1,5 +1,4 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { TokenStorageService } from '../auth/token-storage.service';
 import { CatalogService } from '../services/catalog.service';
@@ -15,11 +14,13 @@ export class CatalogComponent implements OnInit {
   info: any;
   errorMessage: any;
   urlFile: string = '';
+  fileLikes: number = 0;
+  isLike: boolean = false;
   typeFile: string = '';
   nameFile = '';
   pathCatalog = '';
   createCatalogName: any;
-  fileName: string = "Файл не выбран";
+  selectedFileName: string = "Файл не выбран";
   file: any = null;
   preview: any;
   previewURL: any;
@@ -54,7 +55,10 @@ export class CatalogComponent implements OnInit {
 
   getFile(fileName: string): void {
     this.urlFile = '';
+    this.fileLikes = 0;
+    this.isLike = false;
     this.errorMessage = null;
+    this.getLike(fileName);
     if (this.pathCatalog == null) {
       this.pathCatalog = '';
     }
@@ -72,6 +76,31 @@ export class CatalogComponent implements OnInit {
     this.nameFile = fileName;
   }
 
+  getLike(fileName: string) {
+    this.fileService.getFileLike(fileName, this.pathCatalog).subscribe(
+      data => {
+        this.fileLikes = data.likes,
+          this.isLike = data.like_person
+      });
+  }
+
+  setLike() {
+    if (this.isLike) {
+      this.fileLikes -= 1;
+    } else {
+
+      this.fileLikes += 1;
+    }
+    this.isLike = !this.isLike;
+    this.fileService.setFileLike(this.nameFile, this.pathCatalog).subscribe(
+      data => {
+      },
+      error => {
+        this.errorMessage = error.error.message;
+      }
+    );
+  }
+
   createCatalog() {
     this.errorMessage = null;
     this.catalogService.creataCatalog(this.createCatalogName).subscribe(
@@ -87,7 +116,7 @@ export class CatalogComponent implements OnInit {
   onFileSelected(event: any) {
     this.errorMessage = null;
     this.file = event.target.files[0];
-    this.fileName = event.target.files[0].name;
+    this.selectedFileName = event.target.files[0].name;
     if (this.file.type.substring(0, this.file.type.indexOf('/')) == "video") {
       const video: HTMLVideoElement = document.createElement('video');
       video.src = URL.createObjectURL(this.file);

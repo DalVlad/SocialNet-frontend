@@ -5,11 +5,13 @@ figure {
 figure img {
     max-width: 100%;
     max-height: 66vh;
+    min-height: 66vh;
 }
 
 figure video {
     max-width: 100%;
     max-height: 66vh;
+    min-height: 66vh;
 }
 
 .d-flex {
@@ -25,5 +27,20 @@ figure video {
 }
 
 .d-flex div img {
+    cursor: pointer;
     max-height: 75px;
+}
+
+.card-title{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.likes{
+    display: flex;
+    width: 51px;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
 }

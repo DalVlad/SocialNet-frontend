@@ -16,6 +16,14 @@ export class FileService {
     return this.http.get(this.url + this.requestParam + path + '/' + fileName, { responseType: 'blob' });
   }
 
+  getFileLike(fileName: string, path: string): Observable<any> {
+    return this.http.get(this.url + "/like" + this.requestParam + path + '/' + fileName);
+  }
+
+  setFileLike(fileName: string, path: string): Observable<any> {
+    return this.http.post(this.url + "/like" + this.requestParam + path + '/' + fileName, {});
+  }
+
   saveImg(formData: FormData, path: string): Observable<any> {
     return this.http.post(this.url + "/img" + this.requestParam + path, formData)
   }
