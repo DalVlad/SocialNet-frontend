@@ -21,13 +21,12 @@ export class CatalogComponent implements OnInit {
   createCatalogName: any;
   fileName: string = "Файл не выбран";
   file: any = null;
-  mapURLImg: Map<string, string> = new Map();
   preview: any;
   previewURL: any;
 
   constructor(private fileService: FileService,
     private catalogService: CatalogService, private tokenStorage: TokenStorageService,
-    private route: ActivatedRoute) {}
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.errorMessage = null;
@@ -39,7 +38,7 @@ export class CatalogComponent implements OnInit {
         for (let i = 0; i < data.pathCatalogRoot.files.length; i++) {
         }
         data.pathCatalogRoot.files.forEach(file => {
-          if (file.preview != null) {
+          if (file.preview != null && file.preview != '') {
             file.url = "data:image/jpeg;base64," + file.preview;
           }
         });
@@ -59,23 +58,13 @@ export class CatalogComponent implements OnInit {
     if (this.pathCatalog == null) {
       this.pathCatalog = '';
     }
-    if (this.mapURLImg.get(fileName) != undefined) {
-      this.nameFile = fileName;
-      this.urlFile = this.mapURLImg.get(fileName)!;
-      this.typeFile = this.urlFile.split("/")[0].split(":")[1];
-      return;
-    }
     this.fileService.getFile(fileName, this.pathCatalog).subscribe(
       data => {
         this.typeFile = data.type.substring(0, data.type.indexOf('/'));
         const fileReader = new FileReader();
         fileReader.onloadend = () => {
-          this.mapURLImg.set(fileName, fileReader.result as string);
-          if (this.urlFile == '') {
-            this.urlFile = fileReader.result as string;
-          }
-        };
-        fileReader.readAsDataURL(data);
+          this.urlFile = fileReader.result as string;
+        }; fileReader.readAsDataURL(data);
       },
       error => {
         this.errorMessage = "error load"
