@@ -5,6 +5,8 @@ import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
 import { CatalogComponent } from './catalog/catalog.component';
+import { ForeignCatalogComponent } from './foreignCatalog/foreign-catalog/foreign-catalog.component';
+import { PersonListComponent } from './personList/person-list/person-list.component';
 
 const routes: Routes = [
   {
@@ -27,6 +29,14 @@ const routes: Routes = [
       path: '',
       redirectTo: 'home',
       pathMatch: 'full'
+  },
+  {
+    path: 'foreign/gallery',
+    component: ForeignCatalogComponent
+  },
+  {
+    path: 'people',
+    component: PersonListComponent
   },
 ];
 

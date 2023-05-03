@@ -10,6 +10,8 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { httpInterceptorProviders } from './auth/auth-interceptor';
 import { CatalogComponent } from './catalog/catalog.component';
+import { ForeignCatalogComponent } from './foreignCatalog/foreign-catalog/foreign-catalog.component';
+import { PersonListComponent } from './personList/person-list/person-list.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { CatalogComponent } from './catalog/catalog.component';
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    CatalogComponent
+    CatalogComponent,
+    ForeignCatalogComponent,
+    PersonListComponent
   ],
   imports: [
     BrowserModule,

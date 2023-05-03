@@ -1,15 +1,15 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { TokenStorageService } from '../auth/token-storage.service';
-import { CatalogService } from '../services/catalog.service';
-import { FileService } from '../services/file.service';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { CatalogService } from 'src/app/services/catalog.service';
+import { FileService } from 'src/app/services/file.service';
 
 @Component({
-  selector: 'app-catalog',
-  templateUrl: './catalog.component.html',
-  styleUrls: ['./catalog.component.css']
+  selector: 'app-foreign-catalog',
+  templateUrl: './foreign-catalog.component.html',
+  styleUrls: ['./foreign-catalog.component.css']
 })
-export class CatalogComponent implements OnInit {
+export class ForeignCatalogComponent implements OnInit {
 
   info: any;
   errorMessage: any;
@@ -20,8 +20,7 @@ export class CatalogComponent implements OnInit {
   nameFile = '';
   fileId = 0;
   pathCatalog = '';
-  createCatalogName: any;
-  selectedFileName: string = "Файл не выбран";
+  login = '';
   file: any = null;
   preview: any;
   previewURL: any;
@@ -34,8 +33,10 @@ export class CatalogComponent implements OnInit {
     this.errorMessage = null;
     this.route.queryParams.subscribe(params => {
       this.pathCatalog = params['pathCatalog'];
+      this.login = params['l'];
     });
-    this.catalogService.getCatalog(this.pathCatalog).subscribe(
+    console.log(this.login);
+    this.catalogService.getForeignCatalog(this.pathCatalog, this.login).subscribe(
       data => {
         data.pathCatalogRoot.files.forEach(file => {
           if (file.preview != null && file.preview != '') {
@@ -101,40 +102,6 @@ export class CatalogComponent implements OnInit {
     );
   }
 
-  createCatalog() {
-    this.errorMessage = null;
-    this.catalogService.creataCatalog(this.createCatalogName).subscribe(
-      data => {
-        window.location.reload();
-      },
-      error => {
-        this.errorMessage = error.error.message;
-      }
-    );
-  }
-
-  onFileSelected(event: any) {
-    this.errorMessage = null;
-    this.file = event.target.files[0];
-    this.selectedFileName = event.target.files[0].name;
-    if (this.file.type.substring(0, this.file.type.indexOf('/')) == "video") {
-      const video: HTMLVideoElement = document.createElement('video');
-      video.src = URL.createObjectURL(this.file);
-      video.preload = 'auto';
-      video.currentTime = 1;
-      video.addEventListener('loadeddata', () => {
-        const canvas = document.createElement('canvas');
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-        const ctx = canvas.getContext('2d');
-        ctx!.drawImage(video, 0, 0, canvas.width, canvas.height);
-        this.previewURL = canvas.toDataURL();
-        const blob = this.dataURItoBlob(this.previewURL);
-        this.preview = new File([blob], 'preview.png', { type: 'image/png' });
-      });
-    }
-  }
-
   dataURItoBlob(dataURI: string) {
     const byteString = atob(dataURI.split(',')[1]);
     const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
@@ -144,49 +111,6 @@ export class CatalogComponent implements OnInit {
       ia[i] = byteString.charCodeAt(i);
     }
     return new Blob([ab], { type: mimeString });
-  }
-
-
-  saveFile() {
-    this.errorMessage = null;
-    const formData = new FormData();
-    formData.append("file", this.file);
-    if (this.file.type.substring(0, this.file.type.indexOf('/')) == "video") {
-      formData.append("preview", this.preview);
-      this.fileService.saveVideo(formData, this.pathCatalog).subscribe(
-        data => {
-          window.location.reload();
-        },
-        error => {
-          this.errorMessage = error.error.message;
-        }
-      );
-    } else {
-      this.fileService.saveImg(formData, this.pathCatalog).subscribe(
-        data => {
-          window.location.reload();
-        },
-        error => {
-          this.errorMessage = error.error.message;
-        }
-      );
-    }
-
-  }
-
-  deleteFile() {
-    this.errorMessage = null;
-    if (!confirm("Удалить файл")) {
-      return;
-    }
-    this.fileService.deleteFile(this.fileId, this.pathCatalog).subscribe(
-      data => {
-        window.location.reload();
-      },
-      error => {
-        this.errorMessage = error.error.message;
-      }
-    );
   }
 
 }

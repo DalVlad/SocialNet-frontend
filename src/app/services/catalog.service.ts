@@ -19,6 +19,12 @@ export class CatalogService {
     }));
   }
 
+  getForeignCatalog(path: string, login: string): Observable<storage> {
+    return this.http.get(this.url + this.requestParam + path + "&l=" + login).pipe(map((data: any) => {
+      return new storage(data);
+    }));
+  }
+
   creataCatalog(path: string): Observable<any> {
     return this.http.post(this.url + this.requestParam + path, null)
   }

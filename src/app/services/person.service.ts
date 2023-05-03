@@ -7,12 +7,12 @@ import { Observable } from 'rxjs';
 })
 export class PersonService {
 
-  private helloUrl = 'http://localhost:8080/hello';
+  private url = 'http://localhost:8080/person';
 
   constructor(private http: HttpClient) { }
 
-  getHello(): Observable<string> {
-    return this.http.get(this.helloUrl, { responseType: 'text' });
+  getAll(): Observable<any> {
+    return this.http.get(this.url);
   }
 
 }

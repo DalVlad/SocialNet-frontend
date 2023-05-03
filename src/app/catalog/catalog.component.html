@@ -38,7 +38,7 @@
     </div>
 
     <div *ngFor="let file of info.storage.pathCatalogRoot.files">
-      <a (click)="getFile(file.name)" data-bs-toggle="modal" data-bs-target="#fileModal">
+      <a (click)="getFile(file.name, file.id)" data-bs-toggle="modal" data-bs-target="#fileModal">
         <img *ngIf="file.url; else errorPreview" [src]="file.url" id="file2">
         <ng-template #errorPreview>
           <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor"

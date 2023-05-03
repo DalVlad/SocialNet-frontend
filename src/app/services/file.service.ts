@@ -12,16 +12,16 @@ export class FileService {
 
   constructor(private http: HttpClient) { }
 
-  getFile(fileName: string, path: string): Observable<Blob> {
-    return this.http.get(this.url + this.requestParam + path + '/' + fileName, { responseType: 'blob' });
+  getFile(fileId: number, path: string): Observable<Blob> {
+    return this.http.get(this.url + this.requestParam + path + '/' + fileId, { responseType: 'blob' });
   }
 
-  getFileLike(fileName: string, path: string): Observable<any> {
-    return this.http.get(this.url + "/like" + this.requestParam + path + '/' + fileName);
+  getFileLike(fileId: number, path: string): Observable<any> {
+    return this.http.get(this.url + "/like" + this.requestParam + path + '/' + fileId);
   }
 
-  setFileLike(fileName: string, path: string): Observable<any> {
-    return this.http.post(this.url + "/like" + this.requestParam + path + '/' + fileName, {});
+  setFileLike(fileId: number, path: string): Observable<any> {
+    return this.http.post(this.url + "/like" + this.requestParam + path + '/' + fileId, {});
   }
 
   saveImg(formData: FormData, path: string): Observable<any> {
@@ -32,8 +32,8 @@ export class FileService {
     return this.http.post(this.url + "/video" + this.requestParam + path, formData)
   }
 
-  deleteFile(fileName: string, path: string): Observable<any> {
-    return this.http.delete(this.url + this.requestParam + path + '/' + fileName)
+  deleteFile(fileId: number, path: string): Observable<any> {
+    return this.http.delete(this.url + this.requestParam + path + '/' + fileId)
   }
 
 }
