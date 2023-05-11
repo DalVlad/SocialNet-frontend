@@ -1,0 +1,68 @@
+<div *ngIf="currentChat.id" class="details">
+  <h4>чат {{ currentChat.nameChat }}</h4>
+
+  <div>
+    <label><strong>Имя чата:</strong></label>
+    <form>
+      <div class="form-group">
+        <input
+          type="text"
+          class="form-control"
+          id="chat"
+          [(ngModel)]="currentChat.nameChat"
+          name="chat"
+        />
+      </div>
+    </form>
+  </div>
+
+  <label><strong>Пользователи чата:</strong></label>
+  <div *ngFor="let user of usersInChat">
+    <div *ngIf="currentUser.id == user.id">{{ user.username }} (Вы)</div>
+    <div *ngIf="currentUser.id != user.id">
+      <i
+        class="bi bi-patch-minus minus"
+        (click)="removeUser(user)"></i> {{ user.username }}
+    </div>
+  </div>
+  <label><strong>Добавить пользователей в чат:</strong></label>
+  <div *ngFor="let user of usersOutChat">
+    <i
+      class="bi bi-patch-plus plus"
+      (click)="addUser(user)"></i> {{ user.username }}
+  </div>
+
+  <div style="margin-top: 10px;">
+    <button
+    style="margin-right: 5px;"
+    type="submit"
+    class="btn btn-success"
+    (click)="updateChat()"
+    >
+    Сохранить
+  </button>
+
+  <button
+    style="margin-right: 5px;"
+    type="submit"
+    class="btn btn-secondary"
+    (click)="returnOnMessList()"
+    >
+    Отмена
+  </button>
+
+  <button
+    type="submit"
+    class="btn btn-danger"
+    (click)="leaveChat()"
+    >
+    Покинуть чат
+  </button>
+  </div>
+
+
+</div>
+<div *ngIf="!currentChat.id">
+  <br />
+  <p>Cannot access this Chat...</p>
+</div>

@@ -1,0 +1,51 @@
+<div class="list row">
+  <div class="row-md-6">
+    <a
+      style="margin-left: 7px"
+      class="btn btn-outline-secondary"
+      routerLink="addChat">
+      Создать чат
+    </a>
+  </div>
+  <div class="row-md-8">
+    <div class="input-group mb-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Поиск чата"
+        [(ngModel)]="nameChat"
+      />
+      <div class="input-group-append">
+        <button
+          class="btn btn-outline-secondary"
+          type="button"
+          (click)="searchChat()"
+        >
+          Поиск
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="row-md-6">
+    <h4 style="margin-left: 7px">Чаты</h4>
+    <div *ngFor="let chat of chats">
+      <ul class="list-group">
+        <div class="col">
+            <button
+              type="button"
+              class="btn btn-outline-primary list-chat"
+              (click)="openMessagesChat(chat.id)"
+            >
+              {{ chat.nameChat }}
+            </button>
+            <button
+              type="button"
+              class="bi bi-trash btn btn-outline-danger del-button"
+              (click)="deleteChat(chat.id)"
+            >
+            </button>
+          </div>
+      </ul>
+    </div>
+  </div>
+</div>

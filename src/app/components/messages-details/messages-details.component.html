@@ -1,0 +1,77 @@
+<div *ngIf="currentMessage.id">
+  <form>
+    <div class="form-group">
+      <input
+        type="text"
+        class="form-control"
+        id="message"
+        [(ngModel)]="currentMessage.message"
+        name="message"
+        (keyup.enter)="updateMessage()"
+        (keyup.escape)="closeEdit()"
+      />
+    </div>
+  </form>
+</div>
+
+
+  <!--<div *ngIf="currentMessage.id">
+    <h4>Message</h4>
+    <div>
+      <label><strong>Отправитель:</strong></label> {{ currentMessage.username }}
+    </div>
+    <div>
+      <label><strong>Message:</strong></label> {{ currentMessage.message }}
+    </div>
+    <div>
+      <label><strong>Date:</strong></label> {{ currentMessage.dateOfDispatch | date:'dd.MM.yyyy HH:mm' }}
+    </div>
+
+    <a
+      class="btn btn-outline-secondary"
+      routerLink="{{ currentMessage.id }}"
+    >
+      Edit
+    </a>
+  </div>
+
+  <div *ngIf="!currentMessage">
+    <br />
+    <p>Please click on a Message...</p>
+  </div>-->
+<!--<ng-template #editable>
+  <div *ngIf="currentMessage.id" class="edit-form">
+    <h4>Message</h4>
+    <form>
+
+      <div class="form-group">
+        <label for="message">Message</label>
+        <input
+          type="text"
+          class="form-control"
+          id="message"
+          [(ngModel)]="currentMessage.message"
+          name="message"
+        />
+      </div>
+
+    </form>
+
+    <button (click)="deleteMessage()">
+      Delete
+    </button>
+
+    <button
+      type="submit"
+      (click)="updateMessage()"
+    >
+      Update
+    </button>
+    <p>{{ message }}</p>
+  </div>
+
+  <div *ngIf="!currentMessage.id">
+    <br />
+    <p>Cannot access this Message...</p>
+  </div>
+</ng-template>-->

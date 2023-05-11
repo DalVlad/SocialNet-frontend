@@ -1,0 +1,39 @@
+<div>
+  <div class="submit-form">
+    <div *ngIf="!submitted">
+      <div class="form-group">
+        <label for="chat"><strong>Название чата:</strong></label>
+        <input
+          type="text"
+          class="form-control"
+          id="chat"
+          required
+          [(ngModel)]="chat.nameChat"
+          name="chat"
+        />
+      </div>
+      <div class="form-group">
+        <section>
+          <label style="margin-top: 5px;" for="users"><strong>Выберите пользователей:</strong></label>
+          <form [formGroup]="form" novalidate>
+              <div *ngFor="let user of users">
+                <input
+                  type="checkbox"
+                  formArrayName="pickedUsers"
+                  [value]="user.username"
+                  (change)="onCheckboxChange($event, user.username!)"
+                />
+                {{ user.username }}
+              </div>
+          </form>
+        </section>
+      </div>
+
+      <button (click)="saveChat()" class="btn btn-success">Create</button>
+    </div>
+  </div>
+  <div *ngIf="submitted">
+    <h4>Chat was submitted successfully!</h4>
+    <button class="btn btn-success" (click)="newChat()">Add</button>
+  </div>
+</div>

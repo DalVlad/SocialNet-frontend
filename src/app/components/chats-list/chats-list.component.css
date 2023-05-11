@@ -1,0 +1,12 @@
+.list-chat {
+  height: 50px;
+  margin: 7px;
+  width: 93%;
+}
+
+.del-button {
+  height: 50px;
+  margin: 7px;
+  width: 5%;
+  font-size: 25px;
+}

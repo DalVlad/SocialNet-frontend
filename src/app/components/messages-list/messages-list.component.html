@@ -1,0 +1,104 @@
+<div class="list row">
+  <div *ngIf="!search">
+    <div class="name-chat">
+      <div class="name-container">
+        <div><h4 >Чат {{ chat.nameChat }}</h4></div>
+        <div class="animation">
+          <i
+            class="bi bi-search mouse mouse-search"
+            (click)="opensearchForm()"></i>
+          <i
+            class="bi bi-gear-fill mouse mouse-gear"
+            (click)="redirectToChatDetails()"></i>
+        </div>
+
+
+      </div>
+
+      <div *ngIf="users.length > 2">
+        <a>{{ users.length }} Участников</a>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="search" class="col-md-8">
+    <div class="input-group mb-3 search">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Поиск по истории сообщений"
+        [(ngModel)]="message"
+        (keyup.escape)="closeSearchForm()"
+      />
+      <div class="input-group-append">
+        <button
+          style="margin-left: 3px;"
+          class="btn btn-outline-info"
+          type="button"
+          (click)="searchMessage()"
+        >
+          Поиск
+        </button>
+        <button
+          style="margin-left: 3px;"
+          class="btn btn-secondary"
+          type="button"
+          (click)="closeSearchForm()"
+        >
+          Отмена
+        </button>
+      </div>
+    </div>
+  </div>
+  <div style="width: 506px;">
+    <div class="scroll" #scroll>
+      <div *ngFor="let message of messages; let i = index">
+
+          <div style="width: 467px;">
+            <div> </div>
+            <div *ngIf="currentUser.id == message.userId" class="myMessage showhim">
+              <div class="myContainer">
+                <div class="showme">
+                  <i
+                      style="opacity: 0.6; float: right; padding-right: 9px;"
+                      class="bi bi-trash mouse mouse-trash"
+                      (click)="deleteMessage(message.id)">
+                  </i>
+                </div>
+                <div class="showme" style="padding-right: 125px;">
+                  <i
+                    style="opacity: 0.6; float: right; padding-right: 9px;"
+                    class="bi bi-pencil mouse mouse-pencil"
+                    (click)="updateMess(message)">
+                  </i>
+                </div>
+                <div class="time">{{ message.dateOfDispatch | date:'dd.MM HH:mm' }}</div>
+                <div class="text-primary" style="padding-right: 4px;">Вы</div>
+              </div>
+              <div style="text-align: left">
+                <div *ngIf="!message.editMess">
+                  <div>{{ message.message }}</div>
+                </div>
+                <div *ngIf="message.editMess">
+                  <div>
+                    <app-messages-details
+                      [currentMessage]="message"
+                    ></app-messages-details>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="currentUser.id != message.userId" class="message">
+              <div class="container">
+                <div class="text-primary name">{{ message.username }}</div>
+                <div class="time">{{ message.dateOfDispatch | date:'dd.MM HH:mm' }}</div>
+              </div>
+              <div>{{ message.message }}</div>
+            </div>
+          </div>
+      </div>
+    </div>
+
+    <app-add-messages></app-add-messages>
+  </div>
+</div>

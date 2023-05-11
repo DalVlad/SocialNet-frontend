@@ -1,0 +1,17 @@
+<div>
+  <div class="submit-form container">
+    <div class="form-group">
+      <input
+        type="text"
+        class="form-control input"
+        id="message"
+        placeholder="Напишите сообщение..."
+        required
+        [(ngModel)]="message.message"
+        name="message"
+      />
+    </div>
+
+    <button (click)="saveMessage()" class="btn btn-success button">Send</button>
+  </div>
+</div>
