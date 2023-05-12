@@ -1,0 +1,77 @@
+<hr>
+<div>
+  Подписчики <div class="subsCount">{{memberCount}}</div>
+</div>
+  
+<div>
+
+
+
+  <div class="column">
+
+      <div>ADMINS</div>
+
+      <div *ngFor="let member of members" class="members">
+        
+          <div *ngIf="member.memberRole == 'ADMIN'" class="member_role">{{member.name}}
+            <div><button on-click="changeRoleTo(member.id, 'ADMIN')">Назначить админом</button></div>
+            <div><button on-click="changeRoleTo(member.id, 'MODER')">Назначить модером</button></div>
+            <div><button on-click="changeRoleTo(member.id, 'DONATER')">Назначить донатером</button></div>
+            <div><button on-click="changeRoleTo(member.id, 'SUBSCRIBER')">Назначить подписчиком</button></div>
+          </div>
+        </div>  
+
+  </div>
+
+
+
+  <div class="column">
+    <div>MODERS</div>
+    <div *ngFor="let member of members" class="members">
+      
+      <div *ngIf="member.memberRole == 'MODER'" class="member_role">{{member.name}}
+        <div><button on-click="changeRoleTo(member.id, 'ADMIN')">Назначить админом</button></div>
+        <div><button on-click="changeRoleTo(member.id, 'MODER')">Назначить модером</button></div>
+        <div><button on-click="changeRoleTo(member.id, 'DONATER')">Назначить донатером</button></div>
+        <div><button on-click="changeRoleTo(member.id, 'SUBSCRIBER')">Назначить подписчиком</button></div>
+
+      </div>
+    </div>  
+  </div>
+
+
+  <div class="column">
+    
+    <div>DONATERS</div>
+    <div *ngFor="let member of members" class="members">
+
+      <div *ngIf="member.memberRole == 'DONATER'" class="member_role">{{member.name}}
+        <div><button on-click="changeRoleTo(member.id, 'ADMIN')">Назначить админом</button></div>
+        <div><button on-click="changeRoleTo(member.id, 'MODER')">Назначить модером</button></div>
+        <div><button on-click="changeRoleTo(member.id, 'DONATER')">Назначить донатером</button></div>
+        <div><button on-click="changeRoleTo(member.id, 'SUBSCRIBER')">Назначить подписчиком</button></div>
+      </div>
+
+  </div>
+</div>
+
+  <div class="column">
+    <div>SUBSCRIBERS</div>
+    <div *ngFor="let member of members" class="members">
+
+      <div *ngIf="member.memberRole == 'SUBSCRIBER'" class="member_role">{{member.name}}
+        <div><button on-click="changeRoleTo(member.id, 'ADMIN')">Назначить админом</button></div>
+        <div><button on-click="changeRoleTo(member.id, 'MODER')">Назначить модером</button></div>
+        <div><button on-click="changeRoleTo(member.id, 'DONATER')">Назначить донатером</button></div>
+        <div><button on-click="changeRoleTo(member.id, 'SUBSCRIBER')">Назначить подписчиком</button></div>
+      </div>
+
+  </div>
+  </div> 
+</div>
+
+  
+
+
+
+  

@@ -1,0 +1,21 @@
+<div class="creating">
+    <form class="card" [formGroup]="form" (ngSubmit)="createCommunity()">
+        
+        <div class="form-control">
+            <label>Description &nbsp;&nbsp;</label>
+            <input type="text" formControlName="description">
+        </div>
+
+        <div class="form-control">
+            <label>Title &nbsp;&nbsp;</label>
+            <input type="text" formControlName="title">
+        </div>
+
+        <div class="form-control">
+            <label>Name &nbsp;&nbsp;</label>
+            <input type="text" formControlName="name">
+        </div>
+
+        <button class="btn" type="submit">Submit</button>
+    </form>
+</div>

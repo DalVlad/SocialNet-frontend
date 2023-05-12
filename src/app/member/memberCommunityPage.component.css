@@ -1,0 +1,25 @@
+.members{
+    display: inline-block;
+}
+
+.subsCount{
+    display: inline-block;
+    color: rgb(175, 175, 175);
+}
+.column {
+    float: left;
+    width: 25%;
+    text-align: center;
+}
+.member_role {
+    border-radius: 5px;
+
+    margin: 1em;
+    color: rgb(0, 0, 0);
+    padding: 10px 10px 10px 20px;
+    box-shadow: 0px 2px 4px 1px rgb(201, 201, 201);
+    background-color: #ffffff;
+    font-size: 16px;
+
+    text-align: center;
+}

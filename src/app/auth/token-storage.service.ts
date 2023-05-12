@@ -35,6 +35,7 @@ export class TokenStorageService {
     return localStorage.getItem(USERNAME_KEY)!;
   }
 
+
   public saveAuthorities(authorities: string) {
     window.localStorage.removeItem(AUTHORITIES_KEY);
     window.localStorage.setItem(AUTHORITIES_KEY, JSON.stringify(arguments));

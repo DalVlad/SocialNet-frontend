@@ -1,0 +1,33 @@
+<div class="container">
+    <form [formGroup]="form"  (ngSubmit)="createComment()">
+        
+        <div>
+            <input type="text" class="formS" formControlName="textOfComment" placeholder="Комментарий">
+            <button class="submitComment" type="submit" class="abtn">ОТПРАВИТЬ</button>
+        </div>
+
+
+    </form>
+</div>
+
+<div class="form-control">
+    
+    <div *ngFor="let commentOnPublication of commentsOnPublication">
+        <div>
+            <div *ngIf="canManage" class="btnNearComment">
+                <button on-click="deleteComment(commentOnPublication.id)" class="deleteBTN">delete</button>
+            </div>
+            <div >
+                <div class="btnNearComment">
+                    {{commentOnPublication.textOfComment}}
+                    <hr class="hr">
+                </div>
+            </div>
+
+        </div>
+        
+    </div>
+</div>
+
+
+

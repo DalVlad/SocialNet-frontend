@@ -22,7 +22,8 @@ export class RegisterComponent {
   onSubmit() {
     this.loginInfo = new SignupInfo(
       this.form.login,
-      this.form.password
+      this.form.password,
+      this.form.user_name
     );
 
     this.authService.signUp(this.loginInfo).subscribe(

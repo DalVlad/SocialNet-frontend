@@ -1,0 +1,23 @@
+
+
+
+<div class="wrapper">
+    <div class="allCommunities">
+        <div *ngFor="let community of communities">
+            <a href="/community/{{community.name}}">{{community.title}}</a>  
+                <div class="communityData">
+                    <member-all-communities [communityID]="community.id"></member-all-communities>
+                </div>
+                <div class="communityData">
+                    {{community.description}}
+                </div>
+            <hr>
+        </div>
+    </div>
+
+    <div class="createBtn">
+        <a routerLink="/communityCreation"><button class="btn">Создать сообщество</button></a>
+    </div>
+</div>
+
+

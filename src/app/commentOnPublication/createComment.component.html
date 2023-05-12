@@ -1,0 +1,11 @@
+<div class="container">
+    <form class="card" [formGroup]="form" (ngSubmit)="createComment()">
+        
+        <div class="form-control">
+            <label>TextOfComment</label>
+            <input type="text" formControlName="textOfComment">
+        </div>
+
+        <a href="#"><button class="btn" type="submit">Submit</button></a>
+    </form>
+</div>

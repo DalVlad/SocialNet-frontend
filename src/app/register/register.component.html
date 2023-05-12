@@ -4,13 +4,19 @@
       <div class="row">{{errorMessage}}</div>
     </div>
     <div class="form-group ">
-      <label for="login">Username</label>
+      <label for="login">Login</label>
       <input type="text" class="form-control mb-3" name="login" [(ngModel)]="form.login" #login="ngModel" />
     </div>
     <div class="form-group">
       <label for="password">Password</label>
       <input type="password" class="form-control mb-3" name="password" [(ngModel)]="form.password"
         #password="ngModel" />
+    </div>
+
+    <div class="form-group">
+      <label for="user_name">user_name</label>
+      <input type="text" class="form-control mb-3" name="user_name" [(ngModel)]="form.user_name"
+        #user_name="ngModel" />
     </div>
     <div class="form-group">
       <button class="btn btn-primary">Login</button>

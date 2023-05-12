@@ -1,0 +1,22 @@
+<div class="container">
+    <form class="card" [formGroup]="form" (ngSubmit)="createPublication()">
+        
+        <div class="form-control">
+            <label>Текст</label>
+            <input type="text" formControlName="message">
+        </div>
+
+
+        <select class="form-control" formControlName="member_role">Видимость для
+            <option>SUBSCRIBER</option>
+            <option>DONATER</option>
+            <option>ADMIN</option>
+            <option>NONSUB</option>
+            <option>MODER</option>
+        </select>
+        <br>
+
+
+        <button class="btn" type="submit">Submit</button>
+    </form>
+</div>

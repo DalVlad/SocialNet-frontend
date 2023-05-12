@@ -1,4 +1,5 @@
 export class PersonDTO {
+    id!: number;
     login: string;
     password: string;
 

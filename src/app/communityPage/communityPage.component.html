@@ -1,0 +1,44 @@
+<hr>
+<div class="forFont">
+    <div class="wrapper">
+
+        <div class="center">
+            <all-publication [community]="community" [canManage]="canManage" [role]="role"></all-publication>
+        </div>
+        
+        <div class="nowrapper">
+
+            <div class="right">
+                <div *ngIf="canManage">
+                    <div class="communityInfo">
+                        Панель управления
+                        <div><a href="/community/{{community.name}}/publicationCreation"><button class="btn">Создать пост</button></a></div>
+                        <div><a href="/community/{{community.id}}/members"><button class="btn">Назначить роли</button></a></div>
+                    </div>
+                    
+                    <br>
+                </div>        
+
+                <div class="communityInfo">
+                    <div class="communityTitle">
+                        {{community.title}}
+                        <button *ngIf="!isSubscriber;else unsubBTN" on-click="doSubscribe()" class="sub">Подписаться</button> 
+                        <ng-template #unsubBTN><button on-click="doUnsubcribe()" class="unsub"> Отписаться </button></ng-template> </div>
+                    <br>
+                    <div>{{community.description}}</div>
+                </div>
+            </div>      
+            <div class="right">
+                <div class="communityInfo">
+                    <div class="subs">
+                        <member-community-page [communityID]="community.id"></member-community-page>
+                    </div>
+                </div>
+            </div>          
+        </div>
+        
+    </div>
+</div>
+
+
+

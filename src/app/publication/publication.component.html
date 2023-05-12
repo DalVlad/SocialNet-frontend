@@ -1,0 +1,17 @@
+
+<div class="publication_background" *ngFor="let publication of publications">
+    <div *ngIf="canSee(publication.member_role); else cantSee">
+        <div class="publicationData">{{community.title}}</div>
+        <div class="publicationData">{{publication.createdAt | date:'MMM d'}} в {{publication.createdAt | date:'h:mm'}}</div>
+        <div>{{publication.message}}</div>
+        
+        <div *ngIf="canManage">
+            <button on-click="deletePublication(publication.id)" class="deleteBTN">deletePost</button>
+            <a href="/community/{{community.name}}/publicationEdit/{{publication.id}}" ><button class="editBTN">EditPost</button></a>
+        </div>
+    
+        <hr>
+        <comment-on-publication [publicationID]="publication.id" [canManage]="canManage"></comment-on-publication>     
+    </div>
+    <ng-template #cantSee>YOU CANT SEE THIS</ng-template>
+</div>
