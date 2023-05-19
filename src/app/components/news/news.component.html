@@ -1,0 +1,26 @@
+<p>
+  <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+    Создать
+  </a>
+</p>
+<div class="collapse" id="collapseExample">
+  <form (ngSubmit)="createNews()">
+    <div class="mb-3">
+      <label for="newsText" class="form-label">Текст</label>
+      <input type="text" class="form-control" id="newsText">
+    </div>
+    <div class="mb-3">
+      <label for="newsPicture" class="form-label">Изображение</label>
+      <input type="text" class="form-control" id="newsPicture">
+    </div>
+    <button type="submit" class="btn btn-primary">Создать</button>
+  </form>
+</div>
+
+<div class="card my-3">
+    <div class="card-body" *ngFor="let n of news">
+        <p class="card-text">{{ n.text }}</p>
+        <p class="card-text">Name: {{ n.picture }}</p>
+        <a href="/comment/{{ n.id }}">Комментарии</a>
+    </div>
+</div>
