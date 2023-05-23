@@ -14,6 +14,10 @@ const routes: Routes = [
     component: NewsComponent
   },
   {
+    path: 'news/:newsId',
+    component: NewsComponent
+  },
+  {
     path: 'comment/:newsId',
     component: CommentComponent,
     pathMatch: 'full'

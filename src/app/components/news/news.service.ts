@@ -17,7 +17,7 @@ export class NewsService {
     }
 
     public createNews(personId: number, news: News): Observable<News> {
-        return this.http.post<News>(`${this.newsUrl}/${personId}`, news);
+        return this.http.post<News>(`${this.newsUrl}?personId=${personId}`, news);
     }
 
     public updateNews(newsId: number, news: News): Observable<News> {

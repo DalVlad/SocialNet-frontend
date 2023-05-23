@@ -17,7 +17,7 @@ export class CommentService {
     }
 
     public createComment(personId: number, comment: Comment, newsId: number): Observable<Comment>{
-        return this.http.post<Comment>(`${this.commentUrl}/${newsId}`, comment);
+        return this.http.post<Comment>(`${this.commentUrl}/${newsId}?personId=${personId}`, comment);
     }
 
     public updateComment(commentId: number, comment: Comment): Observable<Comment>{

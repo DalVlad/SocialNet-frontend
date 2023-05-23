@@ -13,6 +13,10 @@ import { ActivatedRoute } from '@angular/router';
 export class CommentComponent {
   public comment: Comment[];
   public newsId: any;
+  public commentForm: any = {
+    message: ''
+  }
+
   constructor(private commentService: CommentService, private route: ActivatedRoute) { 
     this.newsId = route.snapshot.params['newsId'];
   }
@@ -31,7 +35,13 @@ export class CommentComponent {
     )
   }
 
-  public createComment(){
-    
+  public createComment(personId: number){
+    this.commentService.createComment(personId, this.newsId, this.commentForm).subscribe();
+    this.getComments(this.newsId);
+  }
+
+  public deleteComment(commentId: number){
+    this.commentService.deleteComment(commentId).subscribe();
+    this.getComments(this.newsId);
   }
 }

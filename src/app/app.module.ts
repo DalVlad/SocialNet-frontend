@@ -7,6 +7,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { NewsComponent } from './components/news/news.component';
 import { CommentComponent } from './components/comment/comment.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

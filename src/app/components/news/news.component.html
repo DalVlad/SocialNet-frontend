@@ -7,11 +7,11 @@
   <form (ngSubmit)="createNews()">
     <div class="mb-3">
       <label for="newsText" class="form-label">Текст</label>
-      <input type="text" class="form-control" id="newsText">
+      <input type="text" class="form-control" id="newsText" name="text" [(ngModel)]="newsForm.text">
     </div>
     <div class="mb-3">
       <label for="newsPicture" class="form-label">Изображение</label>
-      <input type="text" class="form-control" id="newsPicture">
+      <input type="text" class="form-control" id="newsPicture" name="picture" [(ngModel)]="newsForm.picture">
     </div>
     <button type="submit" class="btn btn-primary">Создать</button>
   </form>
@@ -22,5 +22,6 @@
         <p class="card-text">{{ n.text }}</p>
         <p class="card-text">Name: {{ n.picture }}</p>
         <a href="/comment/{{ n.id }}">Комментарии</a>
+        <a href=""></a>
     </div>
 </div>
